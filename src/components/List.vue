@@ -10,6 +10,7 @@
 				:key="item.id"
 				:body="item.body"
 				:cardIndex="index"
+				:listIndex="listIndex"
 			/>
 		</div>
 		<CardAdd :index="listIndex" />
@@ -58,7 +59,7 @@
 		background-color: #ddd;
 		border-radius: 10px;
 		color: gray;
-		padding: 5px 10px;
+		padding: 15px 10px;
 		display: inline-block;
 		vertical-align: top;
 		width: 250px;

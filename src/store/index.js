@@ -33,6 +33,9 @@ const store = new Vuex.Store({
 		},
 		addCard(context,payload) {
 			context.commit("addCard",payload);
+		},
+		removeCard(context,payload) {
+			context.commit("removeCard",payload);
 		}
 	},
 	mutations: {
@@ -44,6 +47,10 @@ const store = new Vuex.Store({
 		},
 		addCard(state,payload) {
 			state.lists[payload.index].cards.push({body: payload.text});
+		},
+		removeCard(state,payload) {
+			console.log(state.lists[payload.listIndex].cards[payload.cardIndex]);
+			state.lists[payload.listIndex].cards.splice([payload.cardIndex],1);
 		}
 	},
 	getters: {},

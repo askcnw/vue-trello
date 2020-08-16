@@ -1,7 +1,7 @@
 <template>
 	<div class="card">
 		<p>{{ body }}</p>
-		<button @click="removeCard" class="card__button">✗</button>
+		<div @click="removeCard" class="card__button">✗</div>
 	</div>
 </template>
 
@@ -16,10 +16,21 @@
 				type: Number,
 				require: true,
 			},
+			listIndex: {
+				type: Number,
+				require: true,
+			},
 		},
 		methods: {
 			removeCard: function () {
-				console.log("aaa");
+				if (confirm("本当にこのリストを削除しますか？")) {
+					this.$store.dispatch("removeCard", {
+						cardIndex: this.cardIndex,
+						listIndex: this.listIndex,
+					});
+					this.$el.$destroy();
+					this.$el.parentNode.removeChild(this.$el);
+				}
 			},
 		},
 	};
@@ -43,9 +54,13 @@
 			background-color: red;
 			color: #fff;
 			border-radius: 5px;
-			width: 20px;
 			height: 20px;
-			padding: 1px 0 0;
+			padding: 0 3px;
+			cursor: pointer;
+
+			&:hover {
+				opacity: 0.7;
+			}
 		}
 	}
 </style>
