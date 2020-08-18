@@ -8,9 +8,9 @@
 				<p class="board__totals">All Task: {{ totals }}</p>
 				<ListAdd />
 			</div>
-			<div class="board__main">
+			<draggable element="ul" class="board__main">
 				<List v-for="(item,index) in lists" :key="item.id" :title="item.title" :listIndex="index" />
-			</div>
+			</draggable>
 		</main>
 	</div>
 </template>
@@ -19,11 +19,13 @@
 	import ListAdd from "./ListAdd";
 	import List from "./List";
 	import { mapState } from "vuex";
+	import draggable from "vuedraggable";
 
 	export default {
 		components: {
 			ListAdd,
 			List,
+			draggable,
 		},
 		computed: {
 			...mapState(["lists"]),
@@ -56,6 +58,7 @@
 
 		&__main {
 			white-space: nowrap;
+			padding: 0;
 		}
 	}
 </style>

@@ -1,10 +1,11 @@
 <template>
-	<div class="list">
+	<li class="list">
 		<div class="list__heading">
 			<p class="list__title">{{ title }}</p>
 			<div class="list__removeIcon" @click="removeList">✗</div>
 		</div>
-		<div class="list__card">
+		<p class="list__cardTotals">card totals : {{ cardTotals }}</p>
+		<draggable :options="{group:'lists'}" class="list__card">
 			<Card
 				v-for="(item,index) in lists[listIndex].cards"
 				:key="item.id"
@@ -12,20 +13,22 @@
 				:cardIndex="index"
 				:listIndex="listIndex"
 			/>
-		</div>
+		</draggable>
 		<CardAdd :index="listIndex" />
-	</div>
+	</li>
 </template>
 
 <script>
 	import CardAdd from "./CardAdd";
 	import Card from "./Card";
 	import { mapState } from "vuex";
+	import draggable from "vuedraggable";
 
 	export default {
 		components: {
 			CardAdd,
 			Card,
+			draggable,
 		},
 		props: {
 			title: {
@@ -39,6 +42,9 @@
 		},
 		computed: {
 			...mapState(["lists"]),
+			cardTotals() {
+				return this.lists[this.listIndex].cards.length;
+			},
 		},
 		methods: {
 			removeList: function () {
@@ -78,6 +84,10 @@
 		&__title {
 			font-weight: bold;
 			margin: 0;
+		}
+
+		&__cardTotals {
+			color: blue;
 		}
 
 		&__removeIcon {
